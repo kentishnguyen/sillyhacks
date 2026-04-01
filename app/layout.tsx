@@ -1,24 +1,23 @@
-import type { Metadata, Viewport } from 'next'
-import { Fredoka, Comic_Neue } from 'next/font/google'
+import type { Metadata } from 'next'
+import { Baloo_2, Nunito } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const fredoka = Fredoka({ 
-  subsets: ['latin'],
-  variable: '--font-fredoka',
-  display: 'swap',
-})
+const baloo = Baloo_2({ 
+  subsets: ["latin"],
+  variable: '--font-baloo',
+  weight: ['400', '500', '600', '700', '800']
+});
 
-const comicNeue = Comic_Neue({ 
-  weight: ['300', '400', '700'],
-  subsets: ['latin'],
-  variable: '--font-comic',
-  display: 'swap',
-})
+const nunito = Nunito({ 
+  subsets: ["latin"],
+  variable: '--font-nunito',
+  weight: ['400', '500', '600', '700']
+});
 
 export const metadata: Metadata = {
-  title: 'Pet Mind Reader 🐾 | April Fools 2026',
-  description: 'Ever wondered what your pet is REALLY thinking? Upload a photo and our totally real, definitely not silly AI will reveal their deepest thoughts!',
+  title: 'PawPals - Your Pet\'s Best Friend',
+  description: 'The cutest way to care for your furry friends!',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -39,20 +38,14 @@ export const metadata: Metadata = {
   },
 }
 
-export const viewport: Viewport = {
-  themeColor: '#f5a623',
-  width: 'device-width',
-  initialScale: 1,
-}
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${fredoka.variable} ${comicNeue.variable} font-sans antialiased`}>
+    <html lang="en" className={`${baloo.variable} ${nunito.variable}`}>
+      <body className="font-sans antialiased overflow-x-hidden">
         {children}
         <Analytics />
       </body>

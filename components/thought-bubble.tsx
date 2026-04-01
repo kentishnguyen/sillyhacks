@@ -1,46 +1,79 @@
-'use client'
+"use client"
 
-import { cn } from '@/lib/utils'
+import { motion } from "framer-motion"
 
 interface ThoughtBubbleProps {
   thought: string
   isLoading?: boolean
-  className?: string
 }
 
-export function ThoughtBubble({ thought, isLoading, className }: ThoughtBubbleProps) {
+export function ThoughtBubble({ thought, isLoading }: ThoughtBubbleProps) {
   return (
-    <div className={cn('relative', className)}>
-      {/* Thought bubble dots */}
-      <div className="thought-dot w-4 h-4 -bottom-6 left-8 animate-pop-in" style={{ animationDelay: '0ms' }} />
-      <div className="thought-dot w-6 h-6 -bottom-14 left-4 animate-pop-in" style={{ animationDelay: '100ms' }} />
-      <div className="thought-dot w-8 h-8 -bottom-24 left-0 animate-pop-in" style={{ animationDelay: '200ms' }} />
-      
-      {/* Main bubble */}
-      <div 
-        className="relative bg-card rounded-[2rem] p-6 md:p-8 border-4 border-foreground/20 cartoon-shadow-lg animate-thought-bubble"
-        style={{ animationDelay: '300ms' }}
-      >
-        {/* Bubble shine effect */}
-        <div className="absolute top-4 left-6 w-8 h-4 bg-foreground/5 rounded-full transform -rotate-12" />
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="relative"
+    >
+      {/* Main thought bubble */}
+      <div className="relative rounded-3xl bg-card p-6 shadow-xl">
+        {/* Decorative quote marks */}
+        <div className="absolute -left-2 -top-2 font-[family-name:var(--font-baloo)] text-6xl leading-none text-primary/20">
+          &ldquo;
+        </div>
         
         {isLoading ? (
-          <div className="flex items-center gap-2">
-            <span className="text-xl md:text-2xl font-medium text-foreground/80">
-              Reading mind
-            </span>
-            <span className="flex gap-1">
-              <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-              <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-              <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-            </span>
+          <div className="flex items-center justify-center gap-2 py-4">
+            <motion.div
+              className="h-4 w-4 rounded-full bg-primary"
+              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ repeat: Infinity, duration: 1, delay: 0 }}
+            />
+            <motion.div
+              className="h-4 w-4 rounded-full bg-secondary"
+              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ repeat: Infinity, duration: 1, delay: 0.2 }}
+            />
+            <motion.div
+              className="h-4 w-4 rounded-full bg-accent"
+              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ repeat: Infinity, duration: 1, delay: 0.4 }}
+            />
+            <span className="ml-2 text-muted-foreground">Reading mind...</span>
           </div>
         ) : (
-          <p className="text-xl md:text-2xl lg:text-3xl font-medium text-foreground leading-relaxed">
-            {`"${thought}"`}
+          <p className="relative z-10 font-[family-name:var(--font-baloo)] text-xl font-medium leading-relaxed text-foreground md:text-2xl">
+            {thought}
           </p>
         )}
+        
+        {/* Decorative closing quote */}
+        <div className="absolute -bottom-4 -right-2 font-[family-name:var(--font-baloo)] text-6xl leading-none text-primary/20">
+          &rdquo;
+        </div>
       </div>
-    </div>
+
+      {/* Thought bubble tail (circles) */}
+      <div className="absolute -bottom-6 left-8 flex items-end gap-2">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.2 }}
+          className="h-6 w-6 rounded-full bg-card shadow-md"
+        />
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.3 }}
+          className="h-4 w-4 rounded-full bg-card shadow-md"
+        />
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.4 }}
+          className="h-2 w-2 rounded-full bg-card shadow-md"
+        />
+      </div>
+    </motion.div>
   )
 }
