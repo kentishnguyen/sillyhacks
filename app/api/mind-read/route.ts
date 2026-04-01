@@ -15,6 +15,7 @@ Rules:
 - Any other pet - get creative with their personality!
 - Use casual, playful language
 - NO emojis in the response
+- If you see 2 pets in an image, generate a small funny and creative conversation between them.
 
 Example format:
 "I've been waiting for my treat for exactly 47 seconds. This is a war crime. I will remember this betrayal."
